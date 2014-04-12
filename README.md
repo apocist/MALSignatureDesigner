@@ -1,7 +1,8 @@
 MAL Signature Designer
 ====================
 
-Create MyAnimeList.net signatures dynamically with javascript<br>
+Create MyAnimeList.net signatures dynamically with javascript
+
 -------------------------------------------
 This app simply follows a javascript script to load one's Anime list, and allow users to signatures based on what the last 
 shows they watched were.
