@@ -1,0 +1,16 @@
+apache.commons				The Apache Software License, Version 2.0
+apache.httpcomponents			The Apache Software License, Version 2.0
+net.sourceforge.cssparser		GNU Lesser General Public License
+net.sourceforge.htmlunit 		Mozilla Public License version 2.0
+net.sourceforge.nekohtml		The Apache Software License, Version 2.0
+org.eclipse.jetty-websocket		Apache Software License - Version 2.0
+					Eclipse Public License - Version 1.0
+xalan					The Apache Software License, Version 2.0
+xercesImpl				The Apache Software License, Version 2.0
+org.eclipse.jetty			Apache Software License - Version 2.0
+					Eclipse Public License - Version 1.0
+org.w3c.css.sac				The W3C Software License
+xalan.serializer			The Apache Software License, Version 2.0
+xml-apis				The Apache Software License, Version 2.0
+					The SAX License-The W3C License
+mozilla.rhino				Mozilla Public License version 2.0

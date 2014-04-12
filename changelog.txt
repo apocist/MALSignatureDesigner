@@ -1,0 +1,40 @@
+*4/10/2014*
+-Fixed sig.uploadToFTP(), now allows time to upload before terminating
+-Fixed RSS init getting anime link
+-Added script timeout of 2 minutes to prevent running forever due to bad scripting
+*3/18/2014*
+-Renamed functions
+	sig.addSmallDesc() to sig.addEpisodes() for understanding of function name
+-Added functions
+	sig.addStatus(int id,int x,int y, TextFont textFont, String align, int angdeg) //adds watching status
+	sig.addTime(int id,int x,int y, TextFont textFont, String align, int angdeg) //Style To Be Changed
+	sig.makeImage(int width, int height) //create blank image for altering
+	sig.makeText(String text,int x,int y, TextFont textFont, String align, int angdeg) //Allows for text to be filtered
+	sig.uploadToFTP(String domain, String saveTo, String user, String password) //Uploads signature to remote server
+	sig.rss.getEpisodes(int num, int style)
+	sig.rss.getDate(int num) //Allows for date Strings
+	sig.rss.getStatus(int num) //returns the watching status
+-Added filters
+	filter.arc(BufferedImage image,double angle,double spreadAngle,double radius,double height,double centreX,double centerY)
+	filter.blurGaussian(BufferedImage image, int radius, int iterations)
+	filter.blurGaussian(BufferedImage image, int hRadius, int vRadius, int iterations)
+	filter.blurSimple(BufferedImage image)
+	filter.blurVariable(BufferedImage image, int radius)
+	filter.blurVariable(BufferedImage image, int hRadius, int vRadius, int iterations)
+	filter.chrome(BufferedImage image)
+	filter.composite(BufferedImage imageMain, BufferedImage imageToAdd, int x, int y)
+	filter.emboss(BufferedImage image)
+	filter.glowInner(BufferedImage image, double amount) //inner glow
+	filter.kaleidoscope(BufferedImage image, int sides, double radius, double angle, double angle2,double centreX, double centreY) //fun
+	filter.opacity(BufferedImage image,double opacity)
+	filter.rescale(BufferedImage image, double scale)
+	filter.rotate(BufferedImage image, double angle, String anchor)
+	filter.rotate(BufferedImage image, double angle, double anchorX, double anchorY)
+	filter.shadow(BufferedImage image)
+	filter.shadow(BufferedImage image, int radius, double xOffset, double yOffset, double opacity)
+	filter.smear(BufferedImage image)
+	filter.solarize(BufferedImage image) //random colors!
+	filter.sparkle(BufferedImage image) //Experimental
+	filter.sphere(BufferedImage image) //lens view
+	filter.unsharp(BufferedImage image, double amount) //great for after distorting
+-Added apache.commons.net library
