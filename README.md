@@ -1,9 +1,11 @@
 MAL Signature Designer
 ====================
+
 Create MyAnimeList.net signatures dynamically with javascript<br>
 -------------------------------------------
 This app simply follows a javascript script to load one's Anime list, and allow users to signatures based on what the last 
 shows they watched were.
+
 -------------------------------------------
 Features include:<br>
 -loading local image files, <br>
@@ -12,8 +14,10 @@ Features include:<br>
 -placing custom text, that consisting of the anime name, episodes seen, and completetion status<br>
 -rotatable text and images<br>
 -and a large list of Filters to alter the look of text and images such as warp,skew,sharpen,opacitize,colorize, and many more
+
 -------------------------------------------
 Runnable out of the box with example script, images, and font included
+
 -------------------------------------------
 ./images is used to hold image files to be placed on your signature<br>
 ./fonts supports .tff files to affect the look on your text<br>
