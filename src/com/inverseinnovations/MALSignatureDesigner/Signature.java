@@ -29,7 +29,7 @@ public class Signature{
 		String animeList = "";
 		boolean grabAnimeList = true;
 		File file = new File(System.getProperty("user.dir") + "/cache/timeout");
-		if(file.isFile() && file.canRead()){//check if the font is in the font
+		if(file.isFile() && file.canRead()){
 			String timeout = "0";
 			try {
 				timeout = FileUtils.readFileToString(file);
@@ -40,7 +40,10 @@ public class Signature{
 			long timeMillis = System.currentTimeMillis() - Long.parseLong(timeout, 10);
 			//System.out.println(TimeUnit.MILLISECONDS.toMinutes(timeMillis));
 			if(TimeUnit.MILLISECONDS.toMinutes(timeMillis) < 12){
-				grabAnimeList = false;
+				File fileAnime = new File(System.getProperty("user.dir") + "/cache/anime.xml");
+				if(fileAnime.isFile() && fileAnime.canRead()){
+					grabAnimeList = false;
+				}
 			}
 		}
 
@@ -53,8 +56,12 @@ public class Signature{
 				e1.printStackTrace();
 			}
 			try {
-				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/anime.xml"), animeList);
 				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/timeout"), Long.toString(System.currentTimeMillis()));
+				if(animeList == null){
+					System.out.println("Anime List was null, must have encountered an error. Terminating...");
+					System.exit(0);
+				}
+				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/anime.xml"), animeList);
 				System.out.println("Saved Anime List");
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -42,6 +42,7 @@ public class Http {
  	public static String getAnimeList(String username, String rssType) throws FailingHttpStatusCodeException, MalformedURLException, IOException{
 		final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
 		Page page = webClient.getPage("http://myanimelist.net/rss.php?type="+rssType+"&u="+username);
+		//System.out.println(page.getWebResponse().getContentAsString());
 		String content = page.getWebResponse().getContentAsString();
 		webClient.closeAllWindows();
 		if(content.startsWith("<?xml")){//grabbed the xml file

@@ -1,4 +1,12 @@
 #################
+## Custom
+#################
+cache/thumbnails/*.jpg
+cache/timeout
+cache/anime.xml
+image.png
+
+#################
 ## Eclipse
 #################
 
