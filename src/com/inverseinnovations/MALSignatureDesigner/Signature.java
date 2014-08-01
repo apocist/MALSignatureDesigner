@@ -74,6 +74,10 @@ public class Signature{
 			e.printStackTrace();
 		}
 	}
+	public void initDemoSignature(int width, int height){
+		sigImage = makeImage(width, height);
+		rss = new RSS(null);
+	}
 	/**
 	 * Adds an entire layer of a single color
 	 * @param rgb
