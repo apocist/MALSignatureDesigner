@@ -23,67 +23,15 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 public class Signature{
 	private BufferedImage sigImage;//public to allow edits by all
 	public RSS rss;
+	public Filter filter = new Filter();
+	public boolean init = false;
 
-	public void initSignature(String username, int width, int height){
-		sigImage = makeImage(width, height);
-		String animeList = "";
-		boolean grabAnimeList = true;
-		File file = new File(System.getProperty("user.dir") + "/cache/timeout");
-		if(file.isFile() && file.canRead()){
-			String timeout = "0";
-			try {
-				timeout = FileUtils.readFileToString(file);
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			long timeMillis = System.currentTimeMillis() - Long.parseLong(timeout, 10);
-			//System.out.println(TimeUnit.MILLISECONDS.toMinutes(timeMillis));
-			if(TimeUnit.MILLISECONDS.toMinutes(timeMillis) < 12){
-				File fileAnime = new File(System.getProperty("user.dir") + "/cache/anime.xml");
-				if(fileAnime.isFile() && fileAnime.canRead()){
-					grabAnimeList = false;
-				}
-			}
-		}
-
-		if(grabAnimeList){
-			try {
-				animeList = Http.getAnimeList(username, "rw");
-				System.out.println("Grabbed Anime List");
-			}
-			catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/timeout"), Long.toString(System.currentTimeMillis()));
-				if(animeList == null){
-					System.out.println("Anime List was null, must have encountered an error. Terminating...");
-					System.exit(0);
-				}
-				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/anime.xml"), animeList);
-				System.out.println("Saved Anime List");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-			animeList = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "/cache/anime.xml"));
-			rss = new RSS(animeList);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public void initDemoSignature(int width, int height){
-		sigImage = makeImage(width, height);
-		rss = new RSS(null);
-	}
 	/**
 	 * Adds an entire layer of a single color
 	 * @param rgb
 	 */
 	public void addBackground(String rgb){
-		Graphics2D g = getGraphics();
+		/*Graphics2D g = getGraphics();
 		Color color;
 		try{
 			color = Color.decode(rgb);
@@ -93,7 +41,8 @@ public class Signature{
 		}
 		g.setColor(color);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.dispose();
+		g.dispose();*/
+		addImage(makeBackground(rgb),0,0);
 	}
 	/**
 	 * Places Anime Episodes on the image
@@ -106,8 +55,20 @@ public class Signature{
 	 * @param style 1: 3/54 2: 3 of 54
 	 */
 	public void addEpisodes(int id,int x,int y, TextFont textFont, String align, int angdeg, int style){
-		String text = rss.getEpisodes(id, style);
-		addText(text,x,y, textFont,align, angdeg);
+		/*String text = rss.getEpisodes(id, style);
+		addText(text,x,y, textFont,align, angdeg);*/
+		addImage(makeEpisodes(id, x, y, textFont, align, angdeg, style),0,0);
+	}
+	/**
+	 * Places image on the signature
+	 * @param image
+	 * @param x
+	 * @param y
+	 */
+	public void addImage(BufferedImage image,int x, int y){
+		Graphics2D g = getGraphics();
+		g.drawImage(image, x,y, null);
+		g.dispose();
 	}
 	/**
 	 * Places image on the signature
@@ -122,15 +83,18 @@ public class Signature{
 		}
 	}
 	/**
-	 * Places image on the signature
-	 * @param image
+	 * Places Selected Anime's viewing status on the image
+	 * @param id
 	 * @param x
 	 * @param y
+	 * @param textFont
+	 * @param align
+	 * @param angdeg
 	 */
-	public void addImage(BufferedImage image,int x, int y){
-		Graphics2D g = getGraphics();
-		g.drawImage(image, x,y, null);
-		g.dispose();
+	public void addStatus(int id, int x, int y, TextFont textFont, String align, int angdeg){
+		/*String desc = rss.getStatus(id);
+		addText(desc,x,y, textFont,align, angdeg);*/
+		addImage(makeStatus(id, x, y, textFont, align, angdeg),0,0);
 	}
 	/**
 	 * Places text on the image
@@ -198,12 +162,12 @@ public class Signature{
 	 * @param align
 	 * @param angdeg
 	 */
-	@SuppressWarnings("deprecation")
 	public void addTime(int id,int x,int y, TextFont textFont, String align, int angdeg){
-		Date date = rss.getDate(id);
+		/*Date date = rss.getDate(id);
 		if(date != null){
 			addText(date.toLocaleString(),x,y, textFont,align, angdeg);
-		}
+		}*/
+		addImage(makeTime(id, x, y, textFont, align, angdeg),0,0);
 	}
 	/**
 	 * Places Anime Title on the image
@@ -217,7 +181,7 @@ public class Signature{
 	 * @param maxLength the maximum number of characters the title is
 	 */
 	public void addTitle(int id,int x,int y, TextFont textFont, String align, int angdeg, boolean airType, int maxLength){
-		String title = rss.getTitle(id);
+		/*String title = rss.getTitle(id);
 		if(!airType){
 			int subStringLoc = 0;
 			if(title.endsWith(" - TV")){subStringLoc = 5;}
@@ -227,20 +191,8 @@ public class Signature{
 			if(subStringLoc > 0){title = title.substring(0, (title.length()-subStringLoc));}
 		}
 		if(title.length() > maxLength){title = title.substring(0, maxLength)+"...";}
-		addText(title,x,y, textFont,align, angdeg);
-	}
-	/**
-	 * Places Selected Anime's viewing status on the image
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param textFont
-	 * @param align
-	 * @param angdeg
-	 */
-	public void addStatus(int id,int x,int y, TextFont textFont, String align, int angdeg){
-		String desc = rss.getStatus(id);
-		addText(desc,x,y, textFont,align, angdeg);
+		addText(title,x,y, textFont,align, angdeg);*/
+		addImage(makeTitle(id, x, y, textFont, align, angdeg, airType, maxLength),0,0);
 	}
 	/**
 	 * Converts the BufferedImage ColorModel to another
@@ -278,6 +230,62 @@ public class Signature{
 	 */
 	public int getWidth(){
 		return sigImage.getWidth();
+	}
+	public void initDemoSignature(int width, int height){
+		sigImage = makeImage(width, height);
+		rss = new RSS(null);
+		init = true;
+	}
+	public void initSignature(String username, int width, int height){
+		sigImage = makeImage(width, height);
+		String animeList = "";
+		boolean grabAnimeList = true;
+		File file = new File(System.getProperty("user.dir") + "/cache/timeout");
+		if(file.isFile() && file.canRead()){
+			String timeout = "0";
+			try {
+				timeout = FileUtils.readFileToString(file);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			long timeMillis = System.currentTimeMillis() - Long.parseLong(timeout, 10);
+			//System.out.println(TimeUnit.MILLISECONDS.toMinutes(timeMillis));
+			if(TimeUnit.MILLISECONDS.toMinutes(timeMillis) < 12){
+				File fileAnime = new File(System.getProperty("user.dir") + "/cache/anime.xml");
+				if(fileAnime.isFile() && fileAnime.canRead()){
+					grabAnimeList = false;
+				}
+			}
+		}
+
+		if(grabAnimeList){
+			try {
+				animeList = Http.getAnimeList(username, "rw");
+				System.out.println("Grabbed Anime List");
+			}
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/timeout"), Long.toString(System.currentTimeMillis()));
+				if(animeList == null){
+					System.out.println("Anime List was null, must have encountered an error. Terminating...");
+					System.exit(0);
+				}
+				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/anime.xml"), animeList);
+				System.out.println("Saved Anime List");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			animeList = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "/cache/anime.xml"));
+			rss = new RSS(animeList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		init = true;
 	}
 	/**
 	 * Loads the anime thumbnails to be processed
@@ -323,6 +331,39 @@ public class Signature{
 		return image;
 	}
 	/**
+	 * Creates a BufferedImage of an entire layer of a single color
+	 * @param rgb
+	 */
+	public BufferedImage makeBackground(String rgb){
+		BufferedImage image = makeImage(getWidth(), getHeight());
+		Graphics2D g = image.createGraphics();
+		Color color;
+		try{
+			color = Color.decode(rgb);
+		}
+		catch(NumberFormatException e){
+			color = Color.black;
+		}
+		g.setColor(color);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.dispose();
+		return image;
+	}
+	/**
+	 * Creates BufferedImage of Anime Episodes
+	 * @param id the Anime order number
+	 * @param x
+	 * @param y
+	 * @param textFont
+	 * @param align left, center, or right
+	 * @param angdeg degrees to rotate clockwise
+	 * @param style 1: 3/54 2: 3 of 54
+	 */
+	public BufferedImage makeEpisodes(int id,int x,int y, TextFont textFont, String align, int angdeg, int style){
+		String text = rss.getEpisodes(id, style);
+		return makeText(text, x, y, textFont, align, angdeg);
+	}
+	/**
 	 * Creates blank transparent BufferedImage
 	 * @param width
 	 * @param height
@@ -330,6 +371,19 @@ public class Signature{
 	 */
 	public BufferedImage makeImage(int width, int height){
 		return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+	}
+	/**
+	 * Creates BufferedImage Selected Anime's viewing status
+	 * @param id
+	 * @param x
+	 * @param y
+	 * @param textFont
+	 * @param align
+	 * @param angdeg
+	 */
+	public BufferedImage makeStatus(int id, int x, int y, TextFont textFont, String align, int angdeg){
+		String desc = rss.getStatus(id);
+		return makeText(desc,x,y, textFont,align, angdeg);
 	}
 	/**
 	 * Creates transparent image with text composited. Total image will be the same as the Signature.
@@ -369,6 +423,48 @@ public class Signature{
 		g.setTransform(saveTransform); //restoring original transform
 		g.dispose();
 		return image;
+	}
+	/**
+	 * Creates BufferedImage of Date of update on image - Style To Be Changed
+	 * @param id
+	 * @param x
+	 * @param y
+	 * @param textFont
+	 * @param align
+	 * @param angdeg
+	 */
+	@SuppressWarnings("deprecation")
+	public BufferedImage makeTime(int id,int x,int y, TextFont textFont, String align, int angdeg){
+		Date date = rss.getDate(id);
+		BufferedImage image = null;
+		if(date != null){
+			image = makeText(date.toLocaleString(),x,y, textFont,align, angdeg);
+		}
+		return image;
+	}
+	/**
+	 * Creates BufferedImage of the Anime Title
+	 * @param id the Anime order number
+	 * @param x
+	 * @param y
+	 * @param textFont
+	 * @param align left, center, or right
+	 * @param angdeg degrees to rotate clockwise
+	 * @param airType if should display the tpye of show (TV/Movie/OVA)
+	 * @param maxLength the maximum number of characters the title is
+	 */
+	public BufferedImage makeTitle(int id, int x, int y, TextFont textFont, String align, int angdeg, boolean airType, int maxLength){
+		String title = rss.getTitle(id);
+		if(!airType){
+			int subStringLoc = 0;
+			if(title.endsWith(" - TV")){subStringLoc = 5;}
+			else if(title.endsWith(" - Movie")){subStringLoc = 8;}
+			else if(title.endsWith(" - OVA")){subStringLoc = 6;}
+			else if(title.endsWith(" - Special")){subStringLoc = 10;}
+			if(subStringLoc > 0){title = title.substring(0, (title.length()-subStringLoc));}
+		}
+		if(title.length() > maxLength){title = title.substring(0, maxLength)+"...";}
+		return makeText(title,x,y, textFont,align, angdeg);
 	}
 	/**
 	 * Creates a font for use in making text
