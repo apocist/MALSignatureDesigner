@@ -9,6 +9,10 @@ import java.io.IOException;
 public class TextFont {
 	Color color = Color.black;
 	Font font;
+	String fontName = "";
+	String style = "";
+	String hexcolor;
+	int size;
 	public TextFont(){
 		this(null, "plain", 20, "FFFFFF");
 	}
@@ -25,11 +29,16 @@ public class TextFont {
 	 * @param rgbColor
 	 */
 	public TextFont(String fontName, String style, int size, String rgbColor){
+		this.fontName = fontName;
+		this.size = size;
+		this.style = style;
 		try{
 			color = Color.decode(rgbColor);
+			this.hexcolor = rgbColor;
 		}
 		catch(NumberFormatException numE){
-			color = Color.decode("#FFFFFF");
+			color = Color.decode("#000000");
+			this.hexcolor = "#000000";
 		}
 		int fontStyle = Font.PLAIN;
 		if(style!= null){
@@ -58,6 +67,18 @@ public class TextFont {
 	}
 	public Font getFont(){
 		return font;
+	}
+	public String getFontname(){
+		return fontName;
+	}
+	public int getSize(){
+		return size;
+	}
+	public String getStyle(){
+		return style;
+	}
+	public String getHexColor(){
+		return hexcolor;
 	}
 	public Color getColor(){
 		return color;

@@ -53,71 +53,82 @@ public class RSS {
 			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
 			items.add(anime);
 
-			anime.put("title", "Boku wa Tomodachi ga Sukunai - TV");
-			anime.put("id", "10719");
-			anime.put("description", "Plan to Watch - 0 of 12 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime2 = new HashMap<String, String>();
+			anime2.put("title", "Boku wa Tomodachi ga Sukunai - TV");
+			anime2.put("id", "10719");
+			anime2.put("description", "Plan to Watch - 0 of 12 episodes");
+			anime2.put("pubDate", "Mon, 28 Jul 2014 18:21:30 -0700");
+			items.add(anime2);
 
-			anime.put("title", "Gintama - TV");
-			anime.put("id", "918");
-			anime.put("description", "Plan to Watch - 0 of 201 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime3 = new HashMap<String, String>();
+			anime3.put("title", "Gintama - TV");
+			anime3.put("id", "918");
+			anime3.put("description", "Plan to Watch - 0 of 201 episodes");
+			anime3.put("pubDate", "Mon, 28 Jul 2014 17:21:10 -0700");
+			items.add(anime3);
 
-			anime.put("title", "High School DxD 3rd Season - TV");
-			anime.put("id", "24703");
-			anime.put("description", "Plan to Watch - 0 of ? episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime4 = new HashMap<String, String>();
+			anime4.put("title", "High School DxD 3rd Season - TV");
+			anime4.put("id", "24703");
+			anime4.put("description", "Plan to Watch - 0 of ? episodes");
+			anime4.put("pubDate", "Mon, 28 Jul 2014 17:20:30 -0700");
+			items.add(anime4);
 
-			anime.put("title", "Chuunibyou demo Koi ga Shitai! - TV");
-			anime.put("id", "14741");
-			anime.put("description", "Completed - 12 of 12 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime5 = new HashMap<String, String>();
+			anime5.put("title", "Chuunibyou demo Koi ga Shitai! - TV");
+			anime5.put("id", "14741");
+			anime5.put("description", "Completed - 12 of 12 episodes");
+			anime5.put("pubDate", "Mon, 28 Jul 2014 17:20:30 -0700");
+			items.add(anime5);
 
-			anime.put("title", "Baccano! - TV");
-			anime.put("id", "2251");
-			anime.put("description", "Completed - 13 of 13 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime6 = new HashMap<String, String>();
+			anime6.put("title", "Baccano! - TV");
+			anime6.put("id", "2251");
+			anime6.put("description", "Completed - 13 of 13 episodes");
+			anime6.put("pubDate", "Mon, 28 Jul 2014 16:19:30 -0700");
+			items.add(anime6);
 
-			anime.put("title", "K: Missing Kings - Movie");
-			anime.put("id", "16904");
-			anime.put("description", "Plan to Watch - 0 of 1 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime7 = new HashMap<String, String>();
+			anime7.put("title", "K: Missing Kings - Movie");
+			anime7.put("id", "16904");
+			anime7.put("description", "Plan to Watch - 0 of 1 episodes");
+			anime7.put("pubDate", "Mon, 28 Jul 2014 16:22:30 -0700");
+			items.add(anime7);
 
-			anime.put("title", "Durarara!! - TV");
-			anime.put("id", "6746");
-			anime.put("description", "Completed - 24 of 24 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime8 = new HashMap<String, String>();
+			anime8.put("title", "Durarara!! - TV");
+			anime8.put("id", "6746");
+			anime8.put("description", "Completed - 24 of 24 episodes");
+			anime8.put("pubDate", "Mon, 28 Jul 2014 15:22:30 -0700");
+			items.add(anime8);
 
-			anime.put("title", "Kara no Kyoukai: Epilogue - Special");
-			anime.put("id", "6954");
-			anime.put("description", "Plan to Watch - 0 of 1 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime9 = new HashMap<String, String>();
+			anime9.put("title", "Kara no Kyoukai: Epilogue - Special");
+			anime9.put("id", "6954");
+			anime9.put("description", "Plan to Watch - 0 of 1 episodes");
+			anime9.put("pubDate", "Mon, 28 Jul 2014 15:22:30 -0700");
+			items.add(anime9);
 
-			anime.put("title", "Fate/Prototype - OVA");
-			anime.put("id", "12565");
-			anime.put("description", "Completed - 1 of 1 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime10 = new HashMap<String, String>();
+			anime10.put("title", "Fate/Prototype - OVA");
+			anime10.put("id", "12565");
+			anime10.put("description", "Completed - 1 of 1 episodes");
+			anime10.put("pubDate", "Mon, 28 Jul 2014 14:22:30 -0700");
+			items.add(anime10);
 
-			anime.put("title", "Chuunibyou demo Koi ga Shitai!: Kirameki no... Slapstick Noel - Special");
-			anime.put("id", "16934");
-			anime.put("description", "Completed - 1 of 1 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime11 = new HashMap<String, String>();
+			anime11.put("title", "Chuunibyou demo Koi ga Shitai!: Kirameki no... Slapstick Noel - Special");
+			anime11.put("id", "16934");
+			anime11.put("description", "Completed - 1 of 1 episodes");
+			anime11.put("pubDate", "Mon, 28 Jul 2014 12:22:30 -0700");
+			items.add(anime11);
 
-			anime.put("title", "Chuunibyou demo Koi ga Shitai! Ren - TV");
-			anime.put("id", "18671");
-			anime.put("description", "Watching - 10 of 12 episodes");
-			anime.put("pubDate", "Mon, 28 Jul 2014 18:22:30 -0700");
-			items.add(anime);
+			HashMap<String, String> anime12 = new HashMap<String, String>();
+			anime12.put("title", "Chuunibyou demo Koi ga Shitai! Ren - TV");
+			anime12.put("id", "18671");
+			anime12.put("description", "Watching - 10 of 12 episodes");
+			anime12.put("pubDate", "Mon, 28 Jul 2014 11:22:30 -0700");
+			items.add(anime12);
 		}
 	}
 	/**

@@ -397,31 +397,33 @@ public class Signature{
 	 */
 	public BufferedImage makeText(String text,int x,int y, TextFont textFont, String align, double angdeg){
 		BufferedImage image = makeImage(getWidth(), getHeight());
-		Graphics2D g = image.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		Font font = textFont.getFont();
-		g.setFont(font);  //setting font of surface
-		FontRenderContext frc = g.getFontRenderContext();
-		TextLayout layout = new TextLayout(text, font, frc);
-		//getting width & height of the text
-		double sw = layout.getBounds().getWidth();
-		//getting original transform instance
-		AffineTransform saveTransform=g.getTransform();
-		g.setColor(textFont.getColor());
-		AffineTransform affineTransform = new AffineTransform();
-		//rotate with the anchor point as the mid of the text
-		int placeX = x;
-		if(align.equals("center")){
-			placeX = (int)(-sw/2)+x;
+		if(text.length() > 0){
+			Graphics2D g = image.createGraphics();
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			Font font = textFont.getFont();
+			g.setFont(font);  //setting font of surface
+			FontRenderContext frc = g.getFontRenderContext();
+			TextLayout layout = new TextLayout(text, font, frc);
+			//getting width & height of the text
+			double sw = layout.getBounds().getWidth();
+			//getting original transform instance
+			AffineTransform saveTransform=g.getTransform();
+			g.setColor(textFont.getColor());
+			AffineTransform affineTransform = new AffineTransform();
+			//rotate with the anchor point as the mid of the text
+			int placeX = x;
+			if(align.equals("center")){
+				placeX = (int)(-sw/2)+x;
+			}
+			else if(align.equals("right")){
+				placeX = (int) (x - sw);
+			}
+			affineTransform.rotate(Math.toRadians(angdeg), x, y);//at left, change for center/right
+			g.setTransform(affineTransform);
+			g.drawString(text,placeX,y);
+			g.setTransform(saveTransform); //restoring original transform
+			g.dispose();
 		}
-		else if(align.equals("right")){
-			placeX = (int) (x - sw);
-		}
-		affineTransform.rotate(Math.toRadians(angdeg), x, y);//at left, change for center/right
-		g.setTransform(affineTransform);
-		g.drawString(text,placeX,y);
-		g.setTransform(saveTransform); //restoring original transform
-		g.dispose();
 		return image;
 	}
 	/**

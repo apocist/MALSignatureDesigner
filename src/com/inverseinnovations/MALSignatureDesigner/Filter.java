@@ -301,7 +301,12 @@ public class Filter {
 
 			AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, anchorX, anchorY);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-			filteredImage = op.filter(image, null);
+			try{
+				filteredImage = op.filter(image, null);
+			}
+			catch(java.awt.image.RasterFormatException e){
+				System.out.println("RasterFormatException");
+			}
 		}
 		return filteredImage;
 	}
