@@ -163,7 +163,7 @@ public class RSS {
 	/**
 	 * Gets the Episode on of currently selected Anime formatted with style
 	 * @param num order number
-	 * @param style style 1: 3/54 2: 3 of 54
+	 * @param style style 1: 3/54 2: 3 of 54 3: 3 - 54 4: 3 5: 54
 	 * @return
 	 */
 	public String getEpisodes(int num, int style){
@@ -183,6 +183,15 @@ public class RSS {
 			break;
 		case 2:
 			text = episode+" of "+total;
+			break;
+		case 3:
+			text = episode+" - "+total;
+			break;
+		case 4:
+			text = episode;
+			break;
+		case 5:
+			text = total;
 			break;
 		}
 		return text;

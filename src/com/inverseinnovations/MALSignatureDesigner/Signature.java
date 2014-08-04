@@ -52,7 +52,7 @@ public class Signature{
 	 * @param textFont
 	 * @param align left, center, or right
 	 * @param angdeg degrees to rotate clockwise
-	 * @param style 1: 3/54 2: 3 of 54
+	 * @param style style 1: 3/54 2: 3 of 54 3: 3 - 54 4: 3 5: 54
 	 */
 	public void addEpisodes(int id,int x,int y, TextFont textFont, String align, int angdeg, int style){
 		/*String text = rss.getEpisodes(id, style);
@@ -357,7 +357,7 @@ public class Signature{
 	 * @param textFont
 	 * @param align left, center, or right
 	 * @param angdeg degrees to rotate clockwise
-	 * @param style 1: 3/54 2: 3 of 54
+	 * @param style style 1: 3/54 2: 3 of 54 3: 3 - 54 4: 3 5: 54
 	 */
 	public BufferedImage makeEpisodes(int id,int x,int y, TextFont textFont, String align, int angdeg, int style){
 		String text = rss.getEpisodes(id, style);
