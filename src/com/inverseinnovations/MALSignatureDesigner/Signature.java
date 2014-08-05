@@ -92,8 +92,6 @@ public class Signature{
 	 * @param angdeg
 	 */
 	public void addStatus(int id, int x, int y, TextFont textFont, String align, int angdeg){
-		/*String desc = rss.getStatus(id);
-		addText(desc,x,y, textFont,align, angdeg);*/
 		addImage(makeStatus(id, x, y, textFont, align, angdeg),0,0);
 	}
 	/**
@@ -163,10 +161,6 @@ public class Signature{
 	 * @param angdeg
 	 */
 	public void addTime(int id,int x,int y, TextFont textFont, String align, int angdeg){
-		/*Date date = rss.getDate(id);
-		if(date != null){
-			addText(date.toLocaleString(),x,y, textFont,align, angdeg);
-		}*/
 		addImage(makeTime(id, x, y, textFont, align, angdeg),0,0);
 	}
 	/**
@@ -181,17 +175,6 @@ public class Signature{
 	 * @param maxLength the maximum number of characters the title is
 	 */
 	public void addTitle(int id,int x,int y, TextFont textFont, String align, int angdeg, boolean airType, int maxLength){
-		/*String title = rss.getTitle(id);
-		if(!airType){
-			int subStringLoc = 0;
-			if(title.endsWith(" - TV")){subStringLoc = 5;}
-			else if(title.endsWith(" - Movie")){subStringLoc = 8;}
-			else if(title.endsWith(" - OVA")){subStringLoc = 6;}
-			else if(title.endsWith(" - Special")){subStringLoc = 10;}
-			if(subStringLoc > 0){title = title.substring(0, (title.length()-subStringLoc));}
-		}
-		if(title.length() > maxLength){title = title.substring(0, maxLength)+"...";}
-		addText(title,x,y, textFont,align, angdeg);*/
 		addImage(makeTitle(id, x, y, textFont, align, angdeg, airType, maxLength),0,0);
 	}
 	/**
@@ -527,6 +510,13 @@ public class Signature{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Sets the entire signature image
+	 * @param image
+	 */
+	public void setSigImage(BufferedImage image){
+		this.sigImage = image;
 	}
 	/**
 	 * Attempts to upload the current image to a FTP server
