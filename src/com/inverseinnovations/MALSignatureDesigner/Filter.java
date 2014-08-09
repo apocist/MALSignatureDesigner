@@ -228,6 +228,26 @@ public class Filter {
         g.dispose();
         return imageBuff;
 	}
+	/**Resizes the image to the gived width and height
+	 * @param image
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public BufferedImage resize(BufferedImage image, int width, int height){
+		BufferedImage filteredImage = null;
+		if(image != null){
+			//place border to make transparent
+			image = transparentBorder(image, 1);
+			//sample the image to keep quality..X4?
+			double scale = 4;
+			image = rescale(image,scale);
+			//distort the image
+			ScaleFilter filter = new ScaleFilter(width, height);//add points here
+			filteredImage = filter.filter(image, null);
+		}
+		return filteredImage;
+	}
 	/**Rotates the image by a number of degrees. Point of rotation altered by anchor point
 	 * @param image
 	 * @param angle degrees to rotate
