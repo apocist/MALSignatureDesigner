@@ -5,8 +5,10 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class TextFont {
+public class TextFont implements Serializable{
+	private static final long serialVersionUID = 1L;
 	Color color = Color.black;
 	Font font;
 	String fontName = "";
