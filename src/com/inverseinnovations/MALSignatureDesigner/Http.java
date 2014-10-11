@@ -45,7 +45,7 @@ public class Http {
 		//System.out.println(page.getWebResponse().getContentAsString());
 		String content = page.getWebResponse().getContentAsString();
 		webClient.closeAllWindows();
-		if(content.startsWith("<?xml")){//grabbed the xml file
+		if(content.startsWith("<?xml") && content.length() > 350){//grabbed the xml file
 			return content;
 		}
 		return null;

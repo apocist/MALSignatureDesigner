@@ -190,6 +190,9 @@ public class Signature{
 	    g2d.dispose();
 	    return img;
 	}
+	public void echo(String string){
+		System.out.println(string);
+	}
 	/**
 	 * Returns the direct Signature Graphics2D for editing, call dispose() when finished
 	 */

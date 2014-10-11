@@ -21,7 +21,7 @@ public class RSS {
 			Pattern titleParse = Pattern.compile("<title>(.*?)</title>", Pattern.DOTALL);
 			//Pattern linkParse = Pattern.compile("<link>(.*?)</link>", Pattern.DOTALL);
 			//Pattern linkParse = Pattern.compile("<link>http://myanimelist.net/anime/([0-9]+)/", Pattern.DOTALL);
-			Pattern linkParse = Pattern.compile("<link>/anime/([0-9]+)/", Pattern.DOTALL);
+			Pattern linkParse = Pattern.compile("<link>http://myanimelist.net/anime/([0-9]+)/", Pattern.DOTALL);
 			Pattern descParse = Pattern.compile("<description>(.*?)</description>", Pattern.DOTALL);
 			Pattern timeParse = Pattern.compile("<pubDate>(.*?)</pubDate>", Pattern.DOTALL);
 			while(m.find()){
@@ -36,7 +36,14 @@ public class RSS {
 				}
 				animeItem = descParse.matcher(m.group(1));
 				if(animeItem.find()){
-					anime.put("description", animeItem.group(1).trim());
+					if(animeItem.group(1).trim().length() > 9){
+						if(animeItem.group(1).substring(0, 9).equals("<![CDATA[")){
+							anime.put("description", animeItem.group(1).trim().substring(9, animeItem.group(1).trim().length() - 1));
+						}
+						else{
+							anime.put("description", animeItem.group(1).trim());
+						}
+					}
 				}
 				animeItem = timeParse.matcher(m.group(1));
 				if(animeItem.find()){
@@ -216,7 +223,7 @@ public class RSS {
 	 */
 	public String getStatus(int num){
 		String desc = getDesc(num);
-		String text = "";
+		String text = " ";
 		if(desc.startsWith("W")){text = "Watching";}
 		else if(desc.startsWith("P")){text = "To Be Watched";}
 		else if(desc.startsWith("C")){text = "Finished";}
