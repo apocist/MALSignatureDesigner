@@ -25,23 +25,20 @@ public class Signature{
 	public RSS rss;
 	public Filter filter = new Filter();
 	public boolean init = false;
+	private String location = "";
+
+	public Signature(){
+	}
+
+	public Signature(String location){
+		this.location = location;
+	}
 
 	/**
 	 * Adds an entire layer of a single color
 	 * @param rgb
 	 */
 	public void addBackground(String rgb){
-		/*Graphics2D g = getGraphics();
-		Color color;
-		try{
-			color = Color.decode(rgb);
-		}
-		catch(NumberFormatException e){
-			color = Color.black;
-		}
-		g.setColor(color);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		g.dispose();*/
 		addImage(makeBackground(rgb),0,0);
 	}
 	/**
@@ -226,7 +223,7 @@ public class Signature{
 		sigImage = makeImage(width, height);
 		String animeList = "";
 		boolean grabAnimeList = true;
-		File file = new File(System.getProperty("user.dir") + "/cache/timeout");
+		File file = new File(System.getProperty("user.dir") + location + "/cache/timeout");
 		if(file.isFile() && file.canRead()){
 			String timeout = "0";
 			try {
@@ -238,7 +235,7 @@ public class Signature{
 			long timeMillis = System.currentTimeMillis() - Long.parseLong(timeout, 10);
 			//System.out.println(TimeUnit.MILLISECONDS.toMinutes(timeMillis));
 			if(TimeUnit.MILLISECONDS.toMinutes(timeMillis) < 12){
-				File fileAnime = new File(System.getProperty("user.dir") + "/cache/anime.xml");
+				File fileAnime = new File(System.getProperty("user.dir") + location + "/cache/anime.xml");
 				if(fileAnime.isFile() && fileAnime.canRead()){
 					grabAnimeList = false;
 				}
@@ -254,19 +251,19 @@ public class Signature{
 				e1.printStackTrace();
 			}
 			try {
-				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/timeout"), Long.toString(System.currentTimeMillis()));
+				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + location + "/cache/timeout"), Long.toString(System.currentTimeMillis()));
 				if(animeList == null){
 					System.out.println("Anime List was null, must have encountered an error. Terminating...");
 					System.exit(0);
 				}
-				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + "/cache/anime.xml"), animeList);
+				FileUtils.writeStringToFile(new File(System.getProperty("user.dir") + location + "/cache/anime.xml"), animeList);
 				System.out.println("Saved Anime List");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
-			animeList = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "/cache/anime.xml"));
+			animeList = FileUtils.readFileToString(new File(System.getProperty("user.dir") + location + "/cache/anime.xml"));
 			rss = new RSS(animeList);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -308,7 +305,7 @@ public class Signature{
 	public BufferedImage loadImage(String filename){
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File(System.getProperty("user.dir") + "/images/"+filename));
+			image = ImageIO.read(new File(System.getProperty("user.dir") + location + "/images/"+filename));
 			//image = convertColorModel(image, BufferedImage.TYPE_INT_ARGB);
 
 		} catch (IOException e) {
@@ -479,7 +476,7 @@ public class Signature{
 	 * @param rgbColor e.g. #23CD2F
 	 */
 	public TextFont newFont(String fontName, String style, int size, String rgbColor){
-		return new TextFont(fontName, style, size, rgbColor);
+		return new TextFont(fontName, style, size, rgbColor, location);
 	}
 	/**
 	 * Saves the signature as an image
@@ -507,8 +504,10 @@ public class Signature{
 	 * @param fileType jpg,png,bmp, ect
 	 */
 	public void saveSignature(String saveTo, String fileType){
+		String saveLoc = location;
+		if(saveLoc.length()>0){saveLoc = saveLoc.substring(1) + "/";}
 		try {
-			File outputfile = new File(saveTo);
+			File outputfile = new File(saveLoc + saveTo);
 			ImageIO.write(sigImage, fileType, outputfile);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -16,7 +16,7 @@ public class Scripting {
 
 	}
 
-	public boolean run(final String script){
+	public boolean run(final String script, final String location){
 		boolean theReturn = false;
 		Callable<Boolean> callable = new Callable<Boolean>() {
 			public Boolean call() throws Exception {
@@ -24,7 +24,7 @@ public class Scripting {
 				Scriptable globalScope = new ImporterTopLevel(cx);
 
 				//js.put("match", match.getERSClass());
-				globalScope.put("sig", globalScope, new Signature());
+				globalScope.put("sig", globalScope, new Signature(location));
 				globalScope.put("filter", globalScope, new Filter());
 				//js.eval(string);
 				cx.evaluateString(globalScope, script, "Script", 1, null);

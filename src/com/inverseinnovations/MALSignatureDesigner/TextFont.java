@@ -16,13 +16,13 @@ public class TextFont implements Serializable{
 	String hexcolor;
 	int size;
 	public TextFont(){
-		this(null, "plain", 20, "FFFFFF");
+		this(null, "plain", 20, "FFFFFF", "");
 	}
-	public TextFont(String fontName, int size){
-		this(fontName, "plain", size, "FFFFFF");
+	public TextFont(String fontName, int size, String location){
+		this(fontName, "plain", size, "FFFFFF", location);
 	}
-	public TextFont(String fontName, int size, String rgbColor){
-		this(fontName, "plain", size, rgbColor);
+	public TextFont(String fontName, int size, String rgbColor, String location){
+		this(fontName, "plain", size, rgbColor, location);
 	}
 	/**
 	 * @param fontName
@@ -30,7 +30,7 @@ public class TextFont implements Serializable{
 	 * @param size
 	 * @param rgbColor
 	 */
-	public TextFont(String fontName, String style, int size, String rgbColor){
+	public TextFont(String fontName, String style, int size, String rgbColor, String location){
 		this.fontName = fontName;
 		this.size = size;
 		this.style = style;
@@ -53,7 +53,7 @@ public class TextFont implements Serializable{
 				break;
 			}
 		}
-		File file = new File(System.getProperty("user.dir") + "/fonts/" +fontName);
+		File file = new File(System.getProperty("user.dir") + location + "/fonts/" +fontName);
 		if(file.isFile() && file.canRead()){//check if the font is in the font
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, file);

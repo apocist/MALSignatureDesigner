@@ -10,14 +10,28 @@ public class Main {
 	public static void main(String[] args) {
 		String script = "";
 		boolean toDelay = false;
-		File file = new File(System.getProperty("user.dir") + "/sig.ini");
-		if(file.isFile() && file.canRead()){//check if the font is in the font
+		String location = "";//depends on how its ran
+		int key = 0;//no key
+		for(int i = 0;i < args.length;i++){
+			if(key == 1){//user
+				location = "/" + args[i];
+			}
+			else{
+				if(args[i].equals("-u")){
+					key = 1;//user
+					continue;
+				}
+			}
+			key = 0;
+		}
+		File file = new File(System.getProperty("user.dir") + location + "/sig.ini");
+		if(file.isFile() && file.canRead()){//check if script exists
 			try {
 				script = FileUtils.readFileToString(file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			toDelay = new Scripting().run(script);
+			toDelay = new Scripting().run(script,location);
 		}
 
 		System.out.println("Done "+toDelay);
